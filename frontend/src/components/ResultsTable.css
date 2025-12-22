@@ -1,40 +1,50 @@
 .results-table-container {
   overflow-x: auto;
-  margin-top: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
 }
 
 .results-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
-  background-color: white;
+  font-size: 0.8125rem;
+  background-color: var(--color-surface);
 }
 
 .results-table thead {
-  background-color: #f3f4f6;
+  background-color: var(--color-surface-hover);
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 .results-table th {
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
   text-align: left;
   font-weight: 600;
-  color: #374151;
-  border-bottom: 2px solid #e5e7eb;
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border);
   white-space: nowrap;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .results-table td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e5e7eb;
-  color: #4b5563;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.results-table tbody tr {
+  transition: background-color 0.15s ease;
 }
 
 .results-table tbody tr:hover {
-  background-color: #f9fafb;
+  background-color: var(--color-surface-hover);
 }
 
 .description-cell {
@@ -51,66 +61,87 @@
 
 .match-type {
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .match-type.identical {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .match-type.suggested {
-  background-color: #dbeafe;
-  color: #1e40af;
+  background-color: rgba(8, 145, 178, 0.1);
+  color: var(--color-primary);
+  border: 1px solid rgba(8, 145, 178, 0.2);
 }
 
 .score {
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  font-weight: 700;
 }
 
 .score.high {
-  background-color: #d1fae5;
-  color: #065f46;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .score.medium {
-  background-color: #fef3c7;
-  color: #92400e;
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .score.low {
-  background-color: #fee2e2;
-  color: #991b1b;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-error);
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   .results-table {
-    background-color: #1e1e3f;
+    background-color: var(--color-surface);
   }
 
   .results-table thead {
-    background-color: #2d2d44;
+    background-color: var(--color-surface-hover);
   }
 
   .results-table th {
-    color: #e5e7eb;
-    border-bottom-color: #4a4a6a;
+    color: var(--color-text-primary);
   }
 
   .results-table td {
-    border-bottom-color: #3d3d5c;
-    color: #d1d5db;
+    color: var(--color-text-primary);
   }
 
-  .results-table tbody tr:hover {
-    background-color: #2d2d44;
+  .match-type.identical {
+    background-color: rgba(16, 185, 129, 0.15);
+  }
+
+  .match-type.suggested {
+    background-color: rgba(8, 145, 178, 0.15);
+  }
+
+  .score.high {
+    background-color: rgba(16, 185, 129, 0.15);
+  }
+
+  .score.medium {
+    background-color: rgba(245, 158, 11, 0.15);
+  }
+
+  .score.low {
+    background-color: rgba(239, 68, 68, 0.15);
   }
 }
