@@ -1,0 +1,162 @@
+.file-uploader {
+  margin-bottom: 1.5rem;
+}
+
+.file-uploader-label {
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.file-uploader-description {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.file-drop-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  background-color: #f9fafb;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.file-drop-zone:hover {
+  border-color: #30A7B5;
+  background-color: rgba(48, 167, 181, 0.05);
+}
+
+.file-drop-zone.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.file-drop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.file-icon {
+  width: 48px;
+  height: 48px;
+  color: #9ca3af;
+}
+
+.file-drop-text {
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.file-browse-link {
+  color: #30A7B5;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.file-browse-link:hover {
+  color: #073C5C;
+}
+
+.file-formats {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.file-selected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-check-icon {
+  width: 24px;
+  height: 24px;
+  color: #10b981;
+}
+
+.file-name {
+  font-weight: 500;
+  color: #065f46;
+}
+
+.file-size {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.file-remove-btn {
+  padding: 0.4rem 0.8rem;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.file-remove-btn:hover {
+  background-color: #fecaca;
+}
+
+.file-error {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .file-uploader-label {
+    color: #e5e7eb;
+  }
+
+  .file-uploader-description {
+    color: #9ca3af;
+  }
+
+  .file-drop-zone {
+    background-color: #073C5C;
+    border-color: rgba(48, 167, 181, 0.3);
+  }
+
+  .file-drop-zone:hover {
+    border-color: #30A7B5;
+    background-color: rgba(48, 167, 181, 0.1);
+  }
+
+  .file-drop-text {
+    color: #d1d5db;
+  }
+
+  .file-browse-link {
+    color: #30A7B5;
+  }
+
+  .file-selected {
+    background-color: #064e3b;
+    border-color: #059669;
+  }
+
+  .file-name {
+    color: #d1fae5;
+  }
+}

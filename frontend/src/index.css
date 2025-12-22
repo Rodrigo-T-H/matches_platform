@@ -1,0 +1,120 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Paleta de colores personalizada */
+  --color-primary: #073C5C;
+  --color-primary-dark: #062341;
+  --color-accent: #30A7B5;
+  --color-accent-orange: #F68D2E;
+  --color-background: #f5f7fa;
+  --color-text: #213547;
+
+  color-scheme: light dark;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: var(--color-primary-dark);
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.75rem;
+  color: var(--color-primary);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-accent);
+  color: white;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+button:hover {
+  background-color: var(--color-primary);
+}
+
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+input, select {
+  padding: 0.5em 0.75em;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: white;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(48, 167, 181, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #062341;
+    --color-text: rgba(255, 255, 255, 0.87);
+    color: var(--color-text);
+    background-color: var(--color-background);
+  }
+
+  input, select {
+    background-color: #073C5C;
+    border-color: #30A7B5;
+    color: white;
+  }
+}
