@@ -1,8 +1,22 @@
 import express from 'express';
-import { upload } from '../config/multer.js';
+import { upload, cleanupFile } from '../config/multer.js';
 import { parseFile, performFuzzyMatching, cleanupFiles } from '../services/fuzzyService.js';
 
 const router = express.Router();
+
+/**
+ * Helper to get file data (works with both memory and disk storage)
+ */
+function getFileData(file) {
+  if (file.buffer) {
+    // Memory storage (production)
+    return { data: file.buffer, name: file.originalname };
+  } else if (file.path) {
+    // Disk storage (development)
+    return { data: file.path, name: file.originalname };
+  }
+  throw new Error('Invalid file format');
+}
 
 /**
  * POST /api/fuzzy/process
@@ -45,6 +59,7 @@ router.post('/process', upload.fields([
 
     console.log(`Processing files: ${pivotFile.originalname} vs ${comparisonFile.originalname}`);
     console.log(`Match count: ${matchCount}`);
+    console.log(`Storage mode: ${pivotFile.buffer ? 'memory' : 'disk'}`);
 
     // Setup SSE headers
     res.setHeader('Content-Type', 'text/event-stream');
@@ -88,13 +103,15 @@ router.post('/process', upload.fields([
     // Send initial progress
     res.write(`data: ${JSON.stringify({ type: 'start', message: 'Iniciando procesamiento...' })}\n\n`);
 
-    // Parse files
-    console.log('Parsing pivot file:', pivotFile.path);
-    const pivotData = parseFile(pivotFile.path);
+    // Parse files (supports both buffer and path)
+    const pivotFileData = getFileData(pivotFile);
+    console.log('Parsing pivot file:', pivotFile.originalname);
+    const pivotData = parseFile(pivotFileData.data, pivotFileData.name);
     console.log('Pivot data parsed:', pivotData.length, 'items');
 
-    console.log('Parsing comparison file:', comparisonFile.path);
-    const comparisonData = parseFile(comparisonFile.path);
+    const comparisonFileData = getFileData(comparisonFile);
+    console.log('Parsing comparison file:', comparisonFile.originalname);
+    const comparisonData = parseFile(comparisonFileData.data, comparisonFileData.name);
     console.log('Comparison data parsed:', comparisonData.length, 'items');
 
     console.log(`Pivot items: ${pivotData.length}, Comparison items: ${comparisonData.length}`);
@@ -132,8 +149,8 @@ router.post('/process', upload.fields([
     console.log(`Processing completed in ${processingTime}ms`);
     console.log(`Total results: ${results.length}`);
 
-    // Clean up files
-    cleanupFiles(files);
+    // Clean up files (only needed for disk storage)
+    files.forEach(file => cleanupFile(file));
 
     // Send completion
     sendComplete(results, {
@@ -145,8 +162,8 @@ router.post('/process', upload.fields([
   } catch (error) {
     console.error('Error processing fuzzy matching:', error);
 
-    // Clean up files on error
-    cleanupFiles(files);
+    // Clean up files on error (only needed for disk storage)
+    files.forEach(file => cleanupFile(file));
 
     // If headers already sent (SSE mode), send error via SSE
     if (res.headersSent) {

@@ -47,11 +47,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+// Escuchar en 0.0.0.0 para Railway y otros servicios cloud
+app.listen(PORT, '0.0.0.0', () => {
+  const host = process.env.RAILWAY_STATIC_URL || process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+  console.log(`🚀 Server running on ${host}`);
   console.log(`📋 API endpoints:`);
   console.log(`   - POST /api/fuzzy/process`);
   console.log(`   - POST /api/google-lens/search`);
   console.log(`   - POST /api/google-lens/upload-search`);
+  console.log(`   - POST /api/google-lens/batch-search`);
   console.log(`   - GET  /api/health`);
 });

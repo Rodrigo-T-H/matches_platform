@@ -10,12 +10,22 @@ const STOPWORDS = new Set([
 
 /**
  * Parse uploaded file (CSV or Excel) and return array of objects
+ * Supports both file path (disk storage) and buffer (memory storage)
  */
-export function parseFile(filePath) {
-  const ext = filePath.toLowerCase().split('.').pop();
+export function parseFile(filePathOrBuffer, originalName = '') {
+  // Determine if we have a buffer or a file path
+  const isBuffer = Buffer.isBuffer(filePathOrBuffer);
+  const ext = isBuffer
+    ? originalName.toLowerCase().split('.').pop()
+    : filePathOrBuffer.toLowerCase().split('.').pop();
 
   if (ext === 'csv') {
-    const fileContent = fs.readFileSync(filePath, 'utf8');
+    let fileContent;
+    if (isBuffer) {
+      fileContent = filePathOrBuffer.toString('utf8');
+    } else {
+      fileContent = fs.readFileSync(filePathOrBuffer, 'utf8');
+    }
     const result = Papa.parse(fileContent, {
       header: true,
       skipEmptyLines: true,
@@ -23,7 +33,12 @@ export function parseFile(filePath) {
     });
     return result.data;
   } else if (ext === 'xlsx' || ext === 'xls') {
-    const workbook = XLSX.readFile(filePath);
+    let workbook;
+    if (isBuffer) {
+      workbook = XLSX.read(filePathOrBuffer, { type: 'buffer' });
+    } else {
+      workbook = XLSX.readFile(filePathOrBuffer);
+    }
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
     return XLSX.utils.sheet_to_json(worksheet, { defval: '' });
